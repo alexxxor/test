@@ -1122,7 +1122,11 @@ function loadQuestion() {
 
   const inputType = isMultipleChoice(q) ? "checkbox" : "radio";
 
-  q.options.forEach((option) => {
+  // Kopiere und mische die Antwortoptionen
+  const shuffledOptions = [...q.options];
+  shuffleArray(shuffledOptions);
+
+  shuffledOptions.forEach((option) => {
     const label = document.createElement("label");
     label.innerHTML = `
       <input type="${inputType}" name="answer" value="${option}" />
@@ -1134,6 +1138,7 @@ function loadQuestion() {
   submitBtn.style.display = "inline-block";
   nextBtn.style.display = "none";
 }
+
 
 submitBtn.addEventListener("click", () => {
   const selectedInputs = Array.from(document.querySelectorAll("input[name='answer']:checked"));
